@@ -113,7 +113,6 @@ if submit_button:
                 pdf_context = extract_pdf_text(pdf_files)
             
             # Check context window limit guard to avoid exceeding Groq free-tier credits or models context
-            # ~8000 characters is a safe allocation limit for a standard Llama-3-8b context placeholder optimization
             token_fallback_activated = False
             if len(pdf_context) > 24000: 
                 pdf_context = ""
@@ -159,9 +158,9 @@ if submit_button:
                 # Initialize the Groq SDK client
                 client = Groq(api_key=groq_api_key)
                 
-                # Use standard high-performance open-weight model optimal for structural generation tasks
+                # Active non-decommissioned supported model ID
                 completion = client.chat.completions.create(
-                    model="llama3-8b-8192",
+                    model="llama-3.1-8b-instant",
                     messages=[
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt}
